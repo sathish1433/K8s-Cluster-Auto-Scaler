@@ -65,8 +65,9 @@ This guide outlines the steps required to set up the [Cluster Autoscaler](https:
    - Replace value with your service account:
      ```json
      "oidc.eks.<region>.amazonaws.com/id/<EKS_ID>:sub": "system:serviceaccount:kube-system:cluster-autoscaler"
-     ```
 
+     ```
+> Note: refer to this file  https://raw.githubusercontent.com/sathish1433/K8s-Cluster-Auto-Scaler/refs/heads/master/oidc-iam-role-trust-pol
 ---
 
 ## Step 4: Tag the Auto Scaling Group
@@ -121,7 +122,7 @@ This guide outlines the steps required to set up the [Cluster Autoscaler](https:
 
 1. Download deployment manifest:
    ```sh
-   wget https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
+   wget https://raw.githubusercontent.com/sathish1433/K8s-Cluster-Auto-Scaler/refs/heads/master/cluster-autoscaler.yml
    ```
 
 2. Update these fields in the manifest:
@@ -131,7 +132,7 @@ This guide outlines the steps required to set up the [Cluster Autoscaler](https:
 
 3. Apply the manifest:
    ```sh
-   kubectl apply -f cluster-autoscaler-autodiscover.yaml
+   kubectl apply -f cluster-autoscaler.yaml
    ```
 
 ---
