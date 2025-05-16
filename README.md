@@ -1,8 +1,3 @@
-Here's a clean and structured **`README.md` template** based on your provided steps for configuring AWS IAM OIDC with Cluster Autoscaler in an EKS cluster:
-
----
-
-````markdown
 # Configure Cluster Autoscaler with AWS IAM OIDC on Amazon EKS
 
 This guide outlines the steps required to set up the [Cluster Autoscaler](https://github.com/kubernetes/autoscaler) in an Amazon EKS cluster using AWS IAM OIDC authentication.
@@ -52,7 +47,7 @@ This guide outlines the steps required to set up the [Cluster Autoscaler](https:
     }
   ]
 }
-````
+```
 
 > Note: Only required for OIDC role creation, not for assignment.
 
@@ -66,10 +61,8 @@ This guide outlines the steps required to set up the [Cluster Autoscaler](https:
 4. **Audience:** `sts.amazonaws.com`
 5. Attach the policy created in Step 2
 6. Edit **Trust relationships**:
-
-   * Replace `:aud` with `:sub`
-   * Replace value with your service account:
-
+   - Replace `:aud` with `:sub`
+   - Replace value with your service account:
      ```json
      "oidc.eks.<region>.amazonaws.com/id/<EKS_ID>:sub": "system:serviceaccount:kube-system:cluster-autoscaler"
      ```
@@ -81,10 +74,10 @@ This guide outlines the steps required to set up the [Cluster Autoscaler](https:
 1. Open the EC2 Console → **Auto Scaling Groups**
 2. Add the following tags:
 
-| Key                                            | Value   |
-| ---------------------------------------------- | ------- |
-| `k8s.io/cluster-autoscaler/enabled`            | `true`  |
-| `k8s.io/cluster-autoscaler/<EKS-Cluster-Name>` | `owned` |
+| Key                                               | Value |
+|----------------------------------------------------|--------|
+| `k8s.io/cluster-autoscaler/enabled`                | `true` |
+| `k8s.io/cluster-autoscaler/<EKS-Cluster-Name>`     | `owned` |
 
 ---
 
@@ -118,29 +111,25 @@ This guide outlines the steps required to set up the [Cluster Autoscaler](https:
 }
 ```
 
-* Attach this policy to:
-
-  * The IAM role used by your EKS worker node group
-  * The IAM OIDC role for Cluster Autoscaler
+- Attach this policy to:
+  - The IAM role used by your EKS worker node group
+  - The IAM OIDC role for Cluster Autoscaler
 
 ---
 
 ## Step 6: Deploy Cluster Autoscaler
 
 1. Download deployment manifest:
-
    ```sh
    wget https://raw.githubusercontent.com/kubernetes/autoscaler/master/cluster-autoscaler/cloudprovider/aws/examples/cluster-autoscaler-autodiscover.yaml
    ```
 
 2. Update these fields in the manifest:
-
-   * `AWS_REGION`
-   * `AWS_ROLE_ARN`
-   * `AWS_WEB_IDENTITY_TOKEN_FILE`
+   - `AWS_REGION`
+   - `AWS_ROLE_ARN`
+   - `AWS_WEB_IDENTITY_TOKEN_FILE`
 
 3. Apply the manifest:
-
    ```sh
    kubectl apply -f cluster-autoscaler-autodiscover.yaml
    ```
@@ -150,25 +139,21 @@ This guide outlines the steps required to set up the [Cluster Autoscaler](https:
 ## Step 7: Test Autoscaler
 
 1. Scale a test deployment:
-
    ```sh
    kubectl scale deployment autoscaler-demo --replicas=50
    ```
 
 2. Verify deployments:
-
    ```sh
    kubectl get deployment
    ```
 
 3. View autoscaler logs:
-
    ```sh
    kubectl logs -n kube-system deployment/cluster-autoscaler
    ```
 
 > Sample log snippet:
-
 ```
 I1025 13:48:42.975037       1 scale_up.go:529] Final scale-up plan: [{eksctl-xxx-xxx-xxx-nodegroup-ng-xxxxx-NodeGroup-xxxxxxxxxx 2->3 (max: 8)}]
 ```
@@ -177,14 +162,5 @@ I1025 13:48:42.975037       1 scale_up.go:529] Final scale-up plan: [{eksctl-xxx
 
 ## References
 
-* [Cluster Autoscaler GitHub](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
-* [Amazon EKS IAM OIDC Documentation](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html)
-
----
-
-```
-
----
-
-Let me know if you want a downloadable `.md` file or if you'd like me to fill in any dynamic placeholders (like `<EKS-Cluster-Name>` or example OIDC URLs).
-```
+- [Cluster Autoscaler GitHub](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
+- [Amazon EKS IAM OIDC Documentation](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html)
