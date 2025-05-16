@@ -164,4 +164,4 @@ I1025 13:48:42.975037       1 scale_up.go:529] Final scale-up plan: [{eksctl-xxx
 ## References
 
 - [Cluster Autoscaler GitHub](https://github.com/kubernetes/autoscaler/tree/master/cluster-autoscaler)
-- [Amazon EKS IAM OIDC Documentation](https://docs.aws.amazon.com/eks/latest/userguide/enable-iam-roles-for-service-accounts.html)
+- [Amazon EKS IAM OIDC Documentation](https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/cloudprovider/aws/CA_with_AWS_IAM_OIDC.md#the-following-is-an-example-to-make-use-of-the-aws-iam-oidc-with-the-cluster-autoscaler-in-an-eks-cluster)
